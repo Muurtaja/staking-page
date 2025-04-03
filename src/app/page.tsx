@@ -21,25 +21,25 @@ export default function TokenStaking() {
     return stakeAmount * interestRate * stakingPeriod;
   };
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const percentage = parseInt(e.target.value);
     setStakePercentage(percentage);
     const amountToStake = (percentage / 100) * totalBalance;
     setStakeAmount(amountToStake);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let amount = parseFloat(e.target.value) || 0;
     if (amount > totalBalance) amount = totalBalance;
     setStakeAmount(amount);
     setStakePercentage((amount / totalBalance) * 100);
   };
 
-  const handleStakingPeriodChange = (e) => {
+  const handleStakingPeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStakingPeriod(parseInt(e.target.value));
   };
 
-  const handleStake = () => {
+  const handleStake = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (stakeAmount > totalBalance) {
       setModalMessage("Insufficient balance! Please enter a valid stake amount.");
       setIsModalOpen(true);
@@ -117,7 +117,7 @@ export default function TokenStaking() {
           <label className="text-lg">Stake Amount</label>
           <input
             type="number"
-            value={isNaN(stakeAmount) ? 0 : stakeAmount}  
+            value={isNaN(stakeAmount) ? 0 : stakeAmount}
             onChange={handleInputChange}
             className="mt-2 p-2 w-full bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             min="0"
@@ -136,7 +136,7 @@ export default function TokenStaking() {
             value={stakePercentage}
             onChange={handleSliderChange}
             className="w-full"
-            disabled={totalBalance === 0} 
+            disabled={totalBalance === 0}
           />
           <div className="flex justify-between text-sm mt-1">
             <span>0%</span>
@@ -200,12 +200,12 @@ export default function TokenStaking() {
             <h2 className="text-xl font-semibold mb-4">Status</h2>
             <p className="mb-2">{modalMessage}</p>
             <div className="flex justify-end">
-              <button 
-                onClick={closeModal} 
+            <button 
+              onClick={closeModal} 
                 className="bg-blue-500 hover:bg-blue-600 p-2 rounded-lg text-white mt-4"
-              >
-                Close
-              </button>
+            >
+              Close
+            </button>
             </div>
           </div>
         </div>
